@@ -1,0 +1,14 @@
+- 2 (??) sliced [[Bacon|bacon]], diced
+- 1 small [[Sweet Onion|sweet onion]], diced
+- 1 [[Bell Pepper|bell pepper]], diced
+- 2 cloves [[Garlic|garlic]], minced
+- 1 tbsp [[Paprika|paprika]]
+- 1/2 tsp [[Chipotle Chilli Powder|chipotle chilli powder]]
+- 1/4 tsp [[Salt|salt]]
+- 1/4 tsp [[Black Pepper|black pepper]]
+- 2 tbsp [[Apple Cider Vinegar|apple cider vinegar]]
+- 2 tbsp [[Barbecue Sauce|barbecue sauce]]
+- 2 tbsp [[Ketchup|ketchup]]
+- 1 tbsp [[Dijon Mustard|dijon mustard]]
+- 1 tbsp [[Brown Sugar|brown sugar]]
+- 44 oz [[]]

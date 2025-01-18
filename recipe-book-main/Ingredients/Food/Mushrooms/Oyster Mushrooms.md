@@ -1,0 +1,5 @@
+*Oyster mushrooms* are an edible type of [[Mushrooms|mushroom]] that is commonly found all over the world - except for in the Pacific Northwest. They belong to the genus *Pleurotus Ostreatus*, and are identifiable by their oyster-shaped caps and decurrent gills (attached to and directly running down the stem). They grow on largely dead material,  in a shelf-like formation with overlapping clusters. The cap is white to light brown, and it has a smooth top, with no warts or scales. Oyster mushrooms are mostly found in summer and fall, as well as winter in warmer areas.  
+
+Oyster mushrooms are popular in Chinese and Japanese cuisines due to their delicate and complex flavour profile and tender texture. They cook quickly, making them ideal for #TypeOfFood/Stirfry , #TypeOfFood/Soup  and #TypeOfFood/Salad . By itself, the mushroom doesn't have a lot of flavour. It mostly shines when prepared with something else. When cooked, they are dense, and don't easily lose their texture.
+
+#Ingredient 

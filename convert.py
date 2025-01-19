@@ -15,7 +15,6 @@ def convert_csv(path: str) -> dict:
             loc = row['location']
             serv = row['servings']
             time = row['time']
-            rec_path = row['file_path']
 
             ingred_li = ingred.split(",")
             amount_li = ingred_amount.split(",")
@@ -26,7 +25,7 @@ def convert_csv(path: str) -> dict:
                 ingredients[ingred_li[i].lower()] = amount_li[i]
             
             
-            recipe = Recipe(name, instruc, ingredients, loc, serv, time, rec_path)
+            recipe = Recipe(name, instruc, ingredients, loc, serv, time)
             rec_dict[name] = recipe
 
     return rec_dict

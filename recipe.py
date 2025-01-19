@@ -1,27 +1,23 @@
 
 class Recipe:
-    def __init__(self, name: str, instructions: str, ingredients={}, location="", servings=1, time="", file_path=""):
+    def __init__(self, name: str, instructions: str, ingredients={}, location="", servings=1, time=""):
         self.name = name
 
+        # changing instructions to list of steps
         self.instructions = instructions.split("', '")
         self.instructions[0] = self.instructions[0][2:]
         self.instructions.pop()
 
         self.ingredients = ingredients
 
+        # location is "other" with no location listed
         if location == "" or location == " ":
             self.location = "Other"
         else:
             self.location = location
-            
+
         self.servings = servings
         self.time = time
-        self.file_path = file_path
-
-    def add_ingred(self, ingredients: str, amount: str):
-        assert ingredients not in self.ingredients, "Ingredient already documented."
-
-        self.ingredients[ingredients] = amount
     
     def __str__(self):
         string = f"\nName: {self.name}\
@@ -30,6 +26,7 @@ class Recipe:
             \nTime: {self.time}\n\
             \nIngredients: "
         
+        # formatting ingredients
         for key in self.ingredients:
             string += f"\n{key} - {self.ingredients[key]}"
         

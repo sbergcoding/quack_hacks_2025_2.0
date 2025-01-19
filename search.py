@@ -1,7 +1,7 @@
 from recipe import *
 from convert import *
-from chatgbt_resipes import *
 from add_recipe_to_csv import input_to_csv
+
 def search(input: str, library: list["Recipe"], input_ingredients=[""]) -> list["Recipe"]:
     """Searches using ingredients and a user input. Returns a list of recipes that match the filter"""
     filter_list=[]
@@ -23,9 +23,7 @@ def search(input: str, library: list["Recipe"], input_ingredients=[""]) -> list[
         if (len(temp)==len(input_ingredients)):
             return filter_list
         else: 
-            chatgpt_resipe = reformat_recipe(generate_recipe(input_ingredients))
-            input_to_csv(chatgpt_resipe)
-            return chatgpt_resipe
+            return None
             
     return filter_list 
 

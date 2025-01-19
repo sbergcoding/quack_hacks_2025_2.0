@@ -1,27 +1,21 @@
 
 class Recipe:
-    def __init__(self, name: str, instruc: str, ingreds={}, location="", servings=1, time="", file_path=""):
+    def __init__(self, name: str, instructions: str, ingredients={}, location="", servings=1, time="", file_path=""):
         self.name = name
-        self.instruc = instruc
-        self.ingreds = ingreds
+        self.instructions = instructions
+        self.ingredients = ingredients
         self.location = location
         self.servings = servings
         self.time = time
         self.file_path = file_path
 
-    def add_ingred(self, ingred: str, amount: str):
-        assert ingred not in self.ingreds, "Ingredient already documented."
+    def add_ingred(self, ingredients: str, amount: str):
+        assert ingredients not in self.ingredients, "Ingredient already documented."
 
-        self.ingreds[ingred] = amount
+        self.ingredients[ingredients] = amount
     
     def __str__(self):
-        return f"\nName: {self.name}\nInstructions: {self.instruc}\nIngredients: {self.ingreds}\n"
+        return f"\nName: {self.name}\nInstructions: {self.instructions}\nIngredients: {self.ingredients}\n"
     
     def __repr__(self):
-        return f"\nName: {self.name}\nInstructions: {self.instruc}\nIngredients: {self.ingreds}\n"
-
-
-def main():
-    test = Recipe("Grilled Cheese", "Don't burn", {"cheese": "2 slices", "bread": "2 slices"}, time="2 minutes")
-    
-main()
+        return f"\nName: {self.name}\nInstructions: {self.instructions}\nIngredients: {self.ingredients}\n"

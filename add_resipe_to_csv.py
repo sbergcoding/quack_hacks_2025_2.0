@@ -1,5 +1,3 @@
-import app
-
 # This function takes in the name of the recipe, instructions, ingredients, ingredients_amount, location, servings, time and writes it to the yummy.csv file.
 def ingredient_keys_to_str(ingredients):
     return "["+ ",".join(ingredients.keys())+"]"
@@ -14,18 +12,20 @@ def instructions_to_str(instructions):
 
 # This function takes in the name of the recipe, instructions, ingredients, ingredients_amount, location, servings, time and writes it to the yummy.csv file.
 def input_to_csv(name, instructions, ingredients, ingredients_amount, location, servings, time):
-    with open("yummy.csv", "a") as f:
-        f.write(f"{name};{instructions};{ingredients};{ingredients_amount};{location};{servings};{time}; None\n") 
+    with open("test.csv", "a") as f:
+        f.write(f"\n{name};{instructions};{ingredients};{ingredients_amount};{location};{servings};{time}; None") 
 
 def main():
-    name = app.name
-    instructions = app.instructions
-    ingredients_dict = app.ingredient_dict
-    location = app.location
-    servings = app.servings
-    time = app.time
+    name = "grilled cheese"
+    instructions = ["1. make sandwich", "2. grill sandwich"]
+    ingredients_dict = {"bread": "2 slices", "cheese": "2 slices"}
+    location = "american"
+    servings = 1
+    time = "30 mins"
     
     ingredients = ingredient_keys_to_str(ingredients_dict)
     ingredients_amount = ingredient_values_to_str(ingredients_dict)
 
     input_to_csv(name, instructions, ingredients, ingredients_amount, location, servings, time)
+
+main()

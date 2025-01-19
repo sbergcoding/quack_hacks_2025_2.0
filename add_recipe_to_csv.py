@@ -32,7 +32,7 @@ def list_to_amounts(ingredients):
     temp = []
     for item in ingredients:
         temp.append(item[1].get())
-    return ",".join(temp)
+    return "', '".join(temp)
 
 # This function takes in the name of the recipe, instructions, ingredients, ingredients_amount, location, servings, time and writes it to the yummy.csv file.
 def input_to_csv(name,  ingredients, ingredients_amount, instructions, servings, time):

@@ -261,7 +261,7 @@ class Page1(tk.Frame):
 
         # Add content to the popup window
         label = tk.Label(popup, text=recipe, justify="left")
-        label.pack(pady=20)
+        label.pack(pady=20, padx=10)
 
         buttonFrame = ttk.Frame(popup)
 

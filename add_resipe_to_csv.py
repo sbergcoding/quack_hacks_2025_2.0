@@ -1,13 +1,5 @@
 import app
 
-# This function loops through the ingredients and if the first letter is uppercase, it adds the ingredient to the list with the ingredient in lowercase. If the first letter is lowercase, it adds the ingredient to the list with the ingredient in uppercase.
-def format_ingredients(ingredients):
-    for i in range(len(ingredients)):
-        if i[0].isupper():
-            ingredients[i] = ingredients[i]+"|"+ingredients[i].lower()
-        else:
-            ingredients[i] = ingredients[i].capitalize()+"|"+ingredients[i]
-
 # This function takes in the name of the recipe, instructions, ingredients, ingredients_amount, location, servings, time and writes it to the yummy.csv file.
 def ingredient_keys_to_str(ingredients):
     return "["+ ",".join(ingredients.keys())+"]"

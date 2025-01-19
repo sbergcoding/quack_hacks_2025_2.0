@@ -12,6 +12,7 @@ from PIL import Image, ImageTk
 from add_recipe_to_csv import *
 from search import *
 from chatgbt_resipes import *
+from convert import *
 import sv_ttk
 
 
@@ -203,8 +204,6 @@ class Page1(tk.Frame):
 
         self.shownRecipes = []
 
-        #self.displayRecipe(Recipe("test", "1. test\n2. test\n3. test", {"ingredient": 'asd'}, "", 1, "", ""))
-
     def submitFilters(self, prompt):
         for element in self.shownRecipes:
             element.destroy()
@@ -213,9 +212,7 @@ class Page1(tk.Frame):
 
         self.title.config(text="Results")
 
-        #results = search("INPUT", "RECIPE OBJECTS", "INPUT_INGREDIENTS")
-
-        results = 1
+        results = search(prompt.split(", "))
 
         if results is None:
             self.shownRecipes.append(ttk.Label(self.contentFrame, text="No results found.\nWould you like to generate or create a new one?", justify="center"))
@@ -259,9 +256,29 @@ class Page1(tk.Frame):
         close_button = ttk.Button(popup, text="Close", command=popup.destroy)
         close_button.pack(pady=(0, 20))
 
+    def displayGeneratedRecipe(self, recipe):
+        popup = tk.Toplevel(self)
+        popup.title(recipe.name)
+
+        # Add content to the popup window
+        label = tk.Label(popup, text=recipe)
+        label.pack(pady=20)
+
+        buttonFrame = ttk.Frame(popup)
+
+        ingredients = recipe.ingredients.keys()
+
+        #keep_button = ttk.Button(buttonFrame, text="Save", command=lambda: input_to_csv(recipe.name, recipe.ingredients.keys(), recipe.ingredients.values(), list_to_instructions(recipe.instructions, servings, time))
+        #keep_button.pack(pady=(0, 20), padx=(0, 15))
+
+        close_button = ttk.Button(buttonFrame, text="Close", command=popup.destroy)
+        close_button.pack(pady=(0, 20))
+
+        buttonFrame.pack()
+
     def generateRecipe(self, prompt):
-        chatgpt_resipe = reformat_recipe(generate_recipe(prompt.split(", ")))
-        self.displayRecipe(chatgpt_resipe)
+        generated_recipe = convert_json_to_recipe(generate_recipe(prompt.split(", ")))
+        self.displayGeneratedRecipe(generated_recipe)
 
 
 # CREATE PAGE

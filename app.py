@@ -65,7 +65,7 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         label = ttk.Label(self, text="Recipe Book", font=H1)
-        label.pack(padx=(0, 150),pady=(20,155))
+        label.pack(pady=(20,155))
 
         label = ttk.Label(self, text="What would you like help with?", font=H3)
         label.pack(pady=(0, 20))

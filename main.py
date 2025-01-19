@@ -1,15 +1,37 @@
-def invalid():
-    print("Invalid input please try again")
-def prompt_user(choice: int):
-    print("Would you like to create or view a recipie?")
-    choice = input("What would you like to do?: ")
-def create():
-    print("Creating a recipie")
-def view():
-    print("Viewing recipies")
-def food_items(amount, ingrediants[amount, dictionary]):
-    for x in dictionary:
+# Library test
+library = {
+    "sweet": ["chocolate"],
+    "fruit": ["strawberry"],
+    "protein": ["meat", "chicken"],
+    "drink": ["water"]
+}
 
-        #if list has ingrediants:
-            #return ingrediants 
-#include filename
+def main():
+    print("Testing the output for specific recipes...")
+    while True:
+        try:
+            ingredients_list = get_ingredients()
+            matching_recipes = find_matching_recipes(library, ingredients_list)
+            if matching_recipes:
+                print(f"Matching recipes: {', '.join(matching_recipes)}")
+            else:
+                print("No matching recipes found.")
+            break  # Exit the loop after successful input
+        except ValueError as e:
+            print(e)
+
+def get_ingredients():
+    # Prompts the user for ingredients and returns them as a list
+    ingredient_input = input("Enter ingredients: ").strip()
+    if not ingredient_input:
+        raise ValueError("Invalid input, please provide at least one ingredient.")
+    return [item.strip() for item in ingredient_input.split(",")]
+
+def find_matching_recipes(library, ingredients):
+    # Finds the matching recipes based on the user's ingredients
+    # Flatten the library values into a single list
+    all_ingredients = [item for sublist in library.values() for item in sublist]
+    return [ingredient for ingredient in ingredients if ingredient in all_ingredients]
+
+if __name__ == "__main__":
+    main()

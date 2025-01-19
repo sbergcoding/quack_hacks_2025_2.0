@@ -266,10 +266,15 @@ class Page1(tk.Frame):
 
         buttonFrame = ttk.Frame(popup)
 
-        ingredients = recipe.ingredients.keys()
+        ingredients = ",".join(recipe.ingredients.keys())
+        amounts = ",".join(recipe.ingredients.values())
 
-        #keep_button = ttk.Button(buttonFrame, text="Save", command=lambda: input_to_csv(recipe.name, recipe.ingredients.keys(), recipe.ingredients.values(), list_to_instructions(recipe.instructions, servings, time))
-        #keep_button.pack(pady=(0, 20), padx=(0, 15))
+        for i in range(len(recipe.instructions)):
+            recipe.instructions[i] = str(i + 1) + ". " + recipe.instructions[i].get()
+        instructions = ", ".join(recipe.instructions)
+
+        keep_button = ttk.Button(buttonFrame, text="Save", command=lambda: input_to_csv(recipe.name, ingredients, amounts, instructions, recipe.servings, recipe.time))
+        keep_button.pack(pady=(0, 20), padx=(0, 15))
 
         close_button = ttk.Button(buttonFrame, text="Close", command=popup.destroy)
         close_button.pack(pady=(0, 20))

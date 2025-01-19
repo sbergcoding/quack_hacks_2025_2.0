@@ -18,7 +18,7 @@ def input_to_csv(name, instructions, ingredients, ingredients_amount, location, 
         f.write(f"{name};{instructions};{ingredients};{ingredients_amount};{location};{servings};{time}; None\n") 
 
 def main():
-    name = 
+    name = app.name
     instructions = app.instructions
     ingredients_dict = app.ingredient_dict
     location = app.location

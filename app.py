@@ -38,7 +38,7 @@ class TkinterApp(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
 
         self.title("Byte 'n Bite")
-        self.geometry("400x600")
+        self.geometry("500x600")
 
         # creating a container
         container = tk.Frame(self)
@@ -130,6 +130,18 @@ class StartPage(tk.Frame):
 
 # SEARCH PAGE
 class Page1(tk.Frame):
+    def bind_mouse_wheel(self):
+        self.canvas.bind("<Enter>", self.enable_mouse_wheel)
+        self.canvas.bind("<Leave>", self.disable_mouse_wheel)
+
+    def enable_mouse_wheel(self, event):
+        self.canvas.bind_all("<MouseWheel>", self.on_mouse_wheel)
+
+    def disable_mouse_wheel(self, event):
+        self.canvas.unbind_all("<MouseWheel>")
+
+    def on_mouse_wheel(self, event):
+        self.canvas.yview_scroll(-1 * (event.delta // 120), "units")
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -149,6 +161,9 @@ class Page1(tk.Frame):
 
         # Bind frame position to scrollbar
         self.contentFrame.bind("<Configure>", self.update_scroll_region)
+
+        # Bind mouse wheel scrolling
+        self.bind_mouse_wheel()
 
         titleFrame = tk.Frame(self.contentFrame)
 
@@ -203,6 +218,20 @@ class Page1(tk.Frame):
 
 # CREATE PAGE
 class Page2(tk.Frame):
+
+    def bind_mouse_wheel(self):
+        self.canvas.bind("<Enter>", self.enable_mouse_wheel)
+        self.canvas.bind("<Leave>", self.disable_mouse_wheel)
+
+    def enable_mouse_wheel(self, event):
+        self.canvas.bind_all("<MouseWheel>", self.on_mouse_wheel)
+
+    def disable_mouse_wheel(self, event):
+        self.canvas.unbind_all("<MouseWheel>")
+
+    def on_mouse_wheel(self, event):
+        self.canvas.yview_scroll(-1 * (event.delta // 120), "units")
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
@@ -221,6 +250,9 @@ class Page2(tk.Frame):
 
         # Bind frame position to scrollbar
         self.contentFrame.bind("<Configure>", self.update_scroll_region)
+
+        # Bind mouse wheel scrolling
+        self.bind_mouse_wheel()
 
         titleFrame = tk.Frame(self.contentFrame)
 

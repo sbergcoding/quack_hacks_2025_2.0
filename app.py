@@ -290,7 +290,29 @@ class Page2(tk.Frame):
 
         self.instructionsEntryFrame.pack(pady=(0, 15))
 
+        timeFrame = ttk.Frame(self.contentFrame)
+
+        timeLabel = ttk.Label(timeFrame, text="Time to cook:")
+        timeLabel.pack(side="left", padx=(0, 15))
+        self.time = ttk.Entry(timeFrame, width=5)
+        self.time.pack(side="left")
+
+        timeFrame.pack()
+
+        servingsFrame = ttk.Frame(self.contentFrame)
+
+        servingsLabel = ttk.Label(servingsFrame, text="Servings:")
+        servingsLabel.pack(side="left", padx=(0, 41), pady=15)
+        self.servings = ttk.Entry(servingsFrame, width=5)
+        self.servings.pack(side="left", pady=(10, 30))
+
+        servingsFrame.pack()
+
         ttk.Button(self.contentFrame, text="Save", command=self.saveRecipe).pack(padx=(25, 0), pady=(0, 25), ipadx=5, ipady=5)
+
+
+
+        self.servings = ttk.Entry()
 
 
     def update_scroll_region(self, event):

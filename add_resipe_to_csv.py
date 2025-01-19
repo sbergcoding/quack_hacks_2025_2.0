@@ -8,6 +8,7 @@ def format_ingredients(ingredients):
         else:
             ingredients[i] = ingredients[i].capitalize()+"|"+ingredients[i]
 
+
 # This function takes in the name of the recipe, instructions, ingredients, ingredients_amount, location, servings, time and writes it to the yummy.csv file.
 def ingredient_keys_to_str(ingredients):
     return "["+ ",".join(ingredients.keys())+"]"

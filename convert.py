@@ -2,7 +2,7 @@ from recipe import Recipe
 import csv
 
 def convert_csv(path: str) -> dict:
-    rec_dict = {}
+    rec_list = []
 
     with open(path, newline='', encoding='utf8') as csv_file:
         reader = csv.DictReader(csv_file, delimiter=";")
@@ -26,6 +26,6 @@ def convert_csv(path: str) -> dict:
             
             
             recipe = Recipe(name, instruc, ingredients, loc, serv, time)
-            rec_dict[name] = recipe
+            rec_list.append(recipe)
 
-    return rec_dict
+    return rec_list

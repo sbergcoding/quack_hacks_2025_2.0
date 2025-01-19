@@ -18,8 +18,6 @@ def search(library: dict["Recipe"], input_ingredients=[""]) -> list["Recipe"]:
         else: 
             return None
     return -1
-library=convert_csv("test.csv") 
-print(search(library, ["bread", "cheese"]))
 
 
 

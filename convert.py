@@ -8,7 +8,6 @@ def convert_csv(path: str) -> dict:
         reader = csv.DictReader(csv_file, delimiter=";")
 
         for row in reader:
-            print(row.keys())
             name = row['name']
             ingred = row['ingredients']
             ingred_amount = row['ingredients_amount']
@@ -26,13 +25,8 @@ def convert_csv(path: str) -> dict:
             for i in range(len(ingred_li)):
                 ingredients[ingred_li[i].lower()] = amount_li[i]
             
+            
             recipe = Recipe(name, instruc, ingredients, loc, serv, time, rec_path)
             rec_dict[name] = recipe
 
     return rec_dict
-
-def main():
-    recipes = convert_csv("test.csv")
-    print(recipes)
-
-main()

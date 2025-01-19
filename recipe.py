@@ -15,7 +15,29 @@ class Recipe:
         self.ingredients[ingredients] = amount
     
     def __str__(self):
-        return f"\nName: {self.name}\nInstructions: {self.instructions}\nIngredients: {self.ingredients}\n"
+        string = f"\nName: {self.name}\
+            \nLocation: {self.location}\
+            \nServings: {self.servings}\
+            \nTime: {self.time}\
+            \nIngredients: "
+        
+        for key in self.ingredients:
+            string += f"\n{key} - {self.ingredients[key]}"
+        
+        return string
     
     def __repr__(self):
-        return f"\nName: {self.name}\nInstructions: {self.instructions}\nIngredients: {self.ingredients}\n"
+        string = f"\nName: {self.name}\
+            \nLocation: {self.location}\
+            \nServings: {self.servings}\
+            \nTime: {self.time}\
+            \nIngredients: "
+        
+        # formatting ingredients
+        for key in self.ingredients:
+            string += f"{key} - {self.ingredients[key]}"
+        
+        # formatting instructions
+        
+        
+        return string

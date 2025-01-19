@@ -1,6 +1,6 @@
 
 class Recipe:
-    def __init__(self, name: str, instruc: str, ingreds={}, location="", servings="", time="", file_path=""):
+    def __init__(self, name: str, instruc: str, ingreds={}, location="", servings=1, time="", file_path=""):
         self.name = name
         self.instruc = instruc
         self.ingreds = ingreds
@@ -15,8 +15,10 @@ class Recipe:
         self.ingreds[ingred] = amount
     
     def __str__(self):
-        return f"Name: {self.name}\nInstructions: {self.instruc}\nIngredients: {self.ingreds}"
+        return f"\nName: {self.name}\nInstructions: {self.instruc}\nIngredients: {self.ingreds}\n"
     
+    def __repr__(self):
+        return f"\nName: {self.name}\nInstructions: {self.instruc}\nIngredients: {self.ingreds}\n"
 
 
 def main():

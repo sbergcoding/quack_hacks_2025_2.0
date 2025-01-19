@@ -5,7 +5,7 @@ def convert_csv(path: str) -> dict:
     rec_dict = {}
 
     with open(path, newline='') as csv_file:
-        reader = csv.DictReader(csv_file)
+        reader = csv.DictReader(csv_file, delimiter=';')
 
         for row in reader:
             name = row['name']
@@ -17,9 +17,13 @@ def convert_csv(path: str) -> dict:
             time = row['time']
             rec_path = row['file_path']
 
+            ingred_li = ingred.split(",")
+            amount_li = ingred_amount.split(",")
+
+
             ingredients = {}
-            for i in range(len(ingred)):
-                ingredients[ingred[i]] = ingred_amount[i]
+            for i in range(len(ingred_li)):
+                ingredients[ingred_li[i].lower()] = amount_li[i]
             
             recipe = Recipe(name, instruc, ingredients, loc, serv, time, rec_path)
             rec_dict[name] = recipe

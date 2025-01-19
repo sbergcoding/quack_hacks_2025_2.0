@@ -23,9 +23,13 @@ def search(input: str, library: list["Recipe"], input_ingredients=[""]) -> list[
         if (len(temp)==len(input_ingredients)):
             return filter_list
         else: 
-            chatgpt_resipe = reformat_recipe(generate_recipe(input_ingredients))
-            input_to_csv(chatgpt_resipe)
-            return chatgpt_resipe
+            chatgpt_reformated_resipe = reformat_recipe(generate_recipe(input_ingredients))
+            chatgpt_resipe = parse_reformatted_recipe(chatgpt_reformated_resipe)
+            filter_list.append(chatgpt_resipe)
+            parse_reformatted_ccv(chatgpt_reformated_resipe)
+            
+
+            
             
     return filter_list 
 

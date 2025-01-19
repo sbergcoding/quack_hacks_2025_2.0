@@ -1,4 +1,3 @@
-# Library test
 library = {
     "sweet": ["chocolate"],
     "fruit": ["strawberry"],
@@ -14,6 +13,7 @@ def main():
             matching_recipes = find_matching_recipes(library, ingredients_list)
             if matching_recipes:
                 print(f"Matching recipes: {', '.join(matching_recipes)}")
+                print(matching_recipes)
             else:
                 print("No matching recipes found.")
             break  # Exit the loop after successful input
@@ -32,6 +32,8 @@ def find_matching_recipes(library, ingredients):
     # Flatten the library values into a single list
     all_ingredients = [item for sublist in library.values() for item in sublist]
     return [ingredient for ingredient in ingredients if ingredient in all_ingredients]
+
+# hlkeeecwqvvqwe beqrb erq re rwe erdat fsg gsnfgnwrfhwrnera
 
 if __name__ == "__main__":
     main()

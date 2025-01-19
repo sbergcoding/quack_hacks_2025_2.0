@@ -5,6 +5,8 @@ Separator, Sizegrip and Treeview
 '''
 
 from recipe import *
+from add_recipe_to_csv import *
+
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
@@ -26,6 +28,8 @@ def toHome(event):
     app.show_frame(StartPage)
 
 
+
+
 class TkinterApp(tk.Tk):
 
     # __init__ function for class tkinterApp
@@ -35,6 +39,7 @@ class TkinterApp(tk.Tk):
 
         self.title("Byte 'n Bite")
         self.geometry("400x600")
+
         # creating a container
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
@@ -134,9 +139,9 @@ class Page1(tk.Frame):
         self.canvas.pack(side="left", fill="both", expand=True)
 
         # Scrollbar
-        scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
-        scrollbar.pack(side="right", fill="y")
-        self.canvas.configure(yscrollcommand=scrollbar.set)
+        self.scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        self.scrollbar.pack(side="right", fill="y")
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
 
         # Frame
         self.contentFrame = ttk.Frame(self.canvas)
@@ -166,18 +171,9 @@ class Page1(tk.Frame):
         entryText = ttk.Entry(self.contentFrame, width=30)
         entryText.pack(pady=(0, 15), ipady=4)
 
-        buttonFrame = tk.Frame(self.contentFrame)
 
-        options = ["Type", "African", "American", "Asian", "Baking", "Drinks", "European", "Fusion", "Other"]
-        selected = tk.StringVar()
-        selected.set(options[0])
-        country = ttk.OptionMenu(buttonFrame, selected, *options)
-        country.pack(side='left', ipadx=10, ipady=5, padx=(0, 20))
-
-        submitButton = ttk.Button(buttonFrame, text="Submit", command=self.submitFilters)
+        submitButton = ttk.Button(self.contentFrame, text="Submit", command=self.submitFilters)
         submitButton.pack(ipadx=5, ipady=5)
-
-        buttonFrame.pack()
 
         self.title = ttk.Label(self.contentFrame, text="Click submit to find recipes!", font=H3)
         self.title.pack(pady=(45, 30))
@@ -239,9 +235,13 @@ class Page2(tk.Frame):
         homeImage.image = photo
         homeImage.pack(pady=(22, 0))
 
-        titleFrame.pack(pady=(0, 80))
+        titleFrame.pack(pady=(0, 50))
 
         homeImage.bind("<Button-1>", toHome)
+
+        self.name = ttk.Entry(self.contentFrame, width=15)
+        self.name.insert(0, "New Recipe")
+        self.name.pack(padx=(20, 185), pady=(0, 40), ipady=4)
 
         ingredientsFrame = tk.Frame(self.contentFrame)
 
@@ -261,7 +261,7 @@ class Page2(tk.Frame):
 
         self.ingredientsEntryFrame = ttk.Frame(self.contentFrame)
 
-        self.ingredientInputs = []
+        self.ingredients = []
         self.createIngredientsInput(None)
         self.createIngredientsInput(None)
 
@@ -284,8 +284,7 @@ class Page2(tk.Frame):
 
         self.instructionsEntryFrame = ttk.Frame(self.contentFrame)
 
-        self.instructionsInputs = []
-        self.createInstructionsInput(None)
+        self.instructions = []
         self.createInstructionsInput(None)
         self.createInstructionsInput(None)
 
@@ -309,22 +308,25 @@ class Page2(tk.Frame):
         entry2.pack(side="left", ipady=4, pady=(0, 10))
 
         entryFrame.pack()
-        self.ingredientInputs.append((entry1, entry2))
+        self.ingredients.append((entry1, entry2))
 
     def createInstructionsInput(self, event):
         entryFrame = ttk.Frame(self.instructionsEntryFrame)
 
-        num = ttk.Label(entryFrame, text=(str(len(self.instructionsInputs) + 1) + "."), font=H3)
+        num = ttk.Label(entryFrame, text=(str(len(self.instructions) + 1) + "."), font=H3)
         entry = ttk.Entry(entryFrame, width=27)
 
         num.pack(side="left", padx=20, pady=(0, 5))
         entry.pack(side="left", ipady=4, pady=(0, 10))
 
         entryFrame.pack()
-        self.instructionsInputs.append(entry)
+        self.instructions.append(entry)
 
     def saveRecipe(self):
-        pass
+        # name, instructions, ingredients, ingredients_amount, location, servings, time
+        name = self.name.get()
+
+        instructions = None
 
 app = TkinterApp()
 sv_ttk.set_theme("dark")

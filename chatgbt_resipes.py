@@ -1,6 +1,7 @@
 from openai import OpenAI
 from recipe import Recipe
 from add_recipe_to_csv import input_to_csv
+import json
 # Read API key from a file
 openai_key = open("API_KEY", "r").read()
 OpenAI.api_key = openai_key
@@ -94,7 +95,6 @@ def reformat_recipe(recipe_json):
     Returns:
         str: The reformatted recipe string.
     """
-    import json
     
     # Parse the JSON string into a Python dictionary
     recipe = json.loads(recipe_json)
@@ -121,34 +121,38 @@ def reformat_recipe(recipe_json):
     
     return reformatted_recipe
 
-def parse_reformatted_recipe(reformatted_recipe: str) -> Recipe:
+def convert_json_to_recipe(recipe_json) -> Recipe:
     """
-    Parse a semicolon-separated recipe string into a Recipe object.
+    Convert a recipe JSON dictionary into a Recipe object.
     
     Parameters:
-        reformatted_recipe (str): The reformatted recipe string.
+        recipe_json (dict): A dictionary containing recipe information.
         
     Returns:
         Recipe: An instance of the Recipe class.
     """
-    # Split the reformatted string by semicolons
-    parts = reformatted_recipe.split(";")
-    
-    # Extract the recipe fields
-    name = parts[0].strip()
-    ingredients_list = parts[1].split(",") if parts[1] else []
-    amounts_list = parts[2].split(",") if parts[2] else []
-    instructions = parts[3].strip()
-    location = parts[4].strip() if len(parts) > 4 else ""
-    servings = int(parts[5].strip()) if len(parts) > 5 and parts[5].strip().isdigit() else 1
-    time = parts[6].strip() if len(parts) > 6 else ""
+    # Extracting data from JSON with default values if keys are missing
+    recrecipe_jsonipe = json.loads(recipe_json)
+    name = recrecipe_jsonipe.get("name", "Unnamed Recipe")
+    instructions = recrecipe_jsonipe.get("instructions", "")
+    ingredients_list = recrecipe_jsonipe.get("ingredients", "").split(",")  # Assuming ingredients are comma-separated
+    amounts_list = recrecipe_jsonipe.get("ingredients_amount", "").split(",")  # Assuming amounts are comma-separated
+    location = recrecipe_jsonipe.get("location", "")
+    servings = recrecipe_jsonipe.get("servings", 1)
+    time = recrecipe_jsonipe.get("time", "")
     
     # Combine ingredients with their corresponding amounts into a dictionary
     ingredients = {ingredient.strip(): amount.strip() for ingredient, amount in zip(ingredients_list, amounts_list)}
     
     # Create and return the Recipe object
-    return Recipe(name=name, instructions=instructions, ingredients=ingredients, location=location, servings=servings, time=time)
-
+    return Recipe(
+        name=name,
+        instructions=instructions,
+        ingredients=ingredients,
+        location=location,
+        servings=servings,
+        time=time
+    )
 
 # Test the function
 def parse_reformatted_ccv(reformatted_recipe: str):
@@ -163,3 +167,9 @@ def parse_reformatted_ccv(reformatted_recipe: str):
     time = parts[6].strip() if len(parts) > 6 else ""
 
     input_to_csv(name, instructions, ingredients_list, amounts_list, location, servings, time)
+
+ingredients = ["chicken", "rice", "soy sauce", "garlic", "ginger", "vegetables"]
+recipe = generate_recipe(ingredients)
+reformatted_recipe = reformat_recipe(recipe)
+parsed_recipe = convert_json_to_recipe(recipe)
+print(parsed_recipe)

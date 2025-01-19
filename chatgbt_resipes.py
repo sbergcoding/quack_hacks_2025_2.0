@@ -1,4 +1,6 @@
 from openai import OpenAI
+from recipe import Recipe
+from add_recipe_to_csv import input_to_csv
 # Read API key from a file
 openai_key = open("API_KEY", "r").read()
 OpenAI.api_key = openai_key
@@ -119,3 +121,45 @@ def reformat_recipe(recipe_json):
     
     return reformatted_recipe
 
+def parse_reformatted_recipe(reformatted_recipe: str) -> Recipe:
+    """
+    Parse a semicolon-separated recipe string into a Recipe object.
+    
+    Parameters:
+        reformatted_recipe (str): The reformatted recipe string.
+        
+    Returns:
+        Recipe: An instance of the Recipe class.
+    """
+    # Split the reformatted string by semicolons
+    parts = reformatted_recipe.split(";")
+    
+    # Extract the recipe fields
+    name = parts[0].strip()
+    ingredients_list = parts[1].split(",") if parts[1] else []
+    amounts_list = parts[2].split(",") if parts[2] else []
+    instructions = parts[3].strip()
+    location = parts[4].strip() if len(parts) > 4 else ""
+    servings = int(parts[5].strip()) if len(parts) > 5 and parts[5].strip().isdigit() else 1
+    time = parts[6].strip() if len(parts) > 6 else ""
+    
+    # Combine ingredients with their corresponding amounts into a dictionary
+    ingredients = {ingredient.strip(): amount.strip() for ingredient, amount in zip(ingredients_list, amounts_list)}
+    
+    # Create and return the Recipe object
+    return Recipe(name=name, instructions=instructions, ingredients=ingredients, location=location, servings=servings, time=time)
+
+
+# Test the function
+def parse_reformatted_ccv(reformatted_recipe: str):
+
+    parts = reformatted_recipe.split(";")
+    name = parts[0].strip()
+    ingredients_list = parts[1].split(",") if parts[1] else []
+    amounts_list = parts[2].split(",") if parts[2] else []
+    instructions = parts[3].strip()
+    location = parts[4].strip() if len(parts) > 4 else ""
+    servings = int(parts[5].strip()) if len(parts) > 5 and parts[5].strip().isdigit() else 1
+    time = parts[6].strip() if len(parts) > 6 else ""
+
+    input_to_csv(name, instructions, ingredients_list, amounts_list, location, servings, time)

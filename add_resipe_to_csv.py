@@ -15,10 +15,10 @@ def instructions_to_str(instructions):
 # This function takes in the name of the recipe, instructions, ingredients, ingredients_amount, location, servings, time and writes it to the yummy.csv file.
 def input_to_csv(name, instructions, ingredients, ingredients_amount, location, servings, time):
     with open("yummy.csv", "a") as f:
-        f.write(f"{name};{instructions};{ingredients};{ingredients_amount};{location};{servings};{time};\n") 
+        f.write(f"{name};{instructions};{ingredients};{ingredients_amount};{location};{servings};{time}; None\n") 
 
 def main():
-    name = app.name
+    name = 
     instructions = app.instructions
     ingredients_dict = app.ingredient_dict
     location = app.location
@@ -27,6 +27,5 @@ def main():
     
     ingredients = ingredient_keys_to_str(ingredients_dict)
     ingredients_amount = ingredient_values_to_str(ingredients_dict)
-    formated_ingredients = format_ingredients(ingredients)
 
-    input_to_csv(name, instructions, formated_ingredients, ingredients_amount, location, servings, time)
+    input_to_csv(name, instructions, ingredients, ingredients_amount, location, servings, time)

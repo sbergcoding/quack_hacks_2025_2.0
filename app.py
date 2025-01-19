@@ -77,7 +77,7 @@ class StartPage(tk.Frame):
 
         tk.Frame.__init__(self, parent)
 
-        label = ttk.Label(self, text="Recipe Book", font=H1)
+        label = ttk.Label(self, text="Byte 'n Bite", font=H1)
         label.pack(pady=(20,155))
 
         label = ttk.Label(self, text="What would you like help with?", font=H3)
@@ -377,10 +377,15 @@ class Page2(tk.Frame):
         self.instructions.append(entry)
 
     def saveRecipe(self):
-        # name, instructions, ingredients, ingredients_amount, location, servings, time
         name = self.name.get()
+        time = self.time.get()
+        servings = self.servings.get()
 
-        instructions = None
+        instructions = list_to_instructions(self.instructions)
+        ingredients = list_to_ingredients(self.ingredients)
+        ingredients_amount = list_to_amounts(self.ingredients)
+
+        input_to_csv(name, ingredients, ingredients_amount, instructions, servings, time)
 
 app = TkinterApp()
 sv_ttk.set_theme("dark")

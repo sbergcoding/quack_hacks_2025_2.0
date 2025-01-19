@@ -21,6 +21,7 @@ H1 = ("Arial", 35, "bold")
 H2 = ("Arial", 24, "bold")
 H3 = ("Arial", 18, "bold")
 BODY = ("Arial", 16)
+SUB = ("Arial", 14)
 
 def toSearch(event):
     app.show_frame(Page1)
@@ -42,7 +43,7 @@ class TkinterApp(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
 
         self.title("Byte 'n Bite")
-        self.geometry("500x600")
+        self.geometry("400x600")
 
         # creating a container
         container = tk.Frame(self)
@@ -179,7 +180,6 @@ class Page1(tk.Frame):
         image = Image.open("icons/home.png").convert("RGBA").resize((30, 30))
         photo = ImageTk.PhotoImage(image)
 
-
         # Create the button with the icon
         homeImage = ttk.Label(titleFrame, image=photo)
         homeImage.image = photo
@@ -188,6 +188,8 @@ class Page1(tk.Frame):
         titleFrame.pack(pady=(0, 125))
 
         homeImage.bind("<Button-1>", toHome)
+
+        ttk.Label(self.contentFrame, text="* Separate ingredients with commas\n(ex. \"Carrots, Potatoes\")", justify="center", font=SUB).pack(pady=(0, 15))
 
         self.entryText = ttk.Entry(self.contentFrame, width=30)
         self.entryText.pack(pady=(0, 15), ipady=4)
@@ -401,7 +403,7 @@ class Page2(tk.Frame):
         servingsFrame = ttk.Frame(self.contentFrame)
 
         servingsLabel = ttk.Label(servingsFrame, text="Servings:")
-        servingsLabel.pack(side="left", padx=(0, 41), pady=15)
+        servingsLabel.pack(side="left", padx=(0, 41), pady=(0, 15))
         self.servings = ttk.Entry(servingsFrame, width=5)
         self.servings.pack(side="left", pady=(10, 30))
 

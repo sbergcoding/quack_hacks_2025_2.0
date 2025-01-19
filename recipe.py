@@ -14,3 +14,12 @@ class Recipe:
 
         self.ingreds[ingred] = amount
     
+    def __str__(self):
+        return f"Name: {self.name}\nInstructions: {self.instruc}\nIngredients: {self.ingreds}"
+    
+
+
+def main():
+    test = Recipe("Grilled Cheese", "Don't burn", {"cheese": "2 slices", "bread": "2 slices"}, time="2 minutes")
+    
+main()

@@ -213,9 +213,9 @@ class Page1(tk.Frame):
 
         self.title.config(text="Results")
 
-        results = search("INPUT", "RECIPE OBJECTS", "INPUT_INGREDIENTS")
+        #results = search("INPUT", "RECIPE OBJECTS", "INPUT_INGREDIENTS")
 
-        results = None
+        results = 1
 
         if results is None:
             self.shownRecipes.append(ttk.Label(self.contentFrame, text="No results found.\nWould you like to generate or create a new one?", justify="center"))
@@ -233,6 +233,9 @@ class Page1(tk.Frame):
 
             self.shownRecipes.append(generate)
             self.shownRecipes.append(create)
+
+        elif type(results) == int:
+            self.title.config(text="Please enter some ingredients.")
 
         else:
             for recipe in results:

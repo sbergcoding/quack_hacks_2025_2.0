@@ -4,6 +4,7 @@ Scale, Scrollbar, and Spinbox. The other six are new: Combobox, Notebook, Progre
 Separator, Sizegrip and Treeview
 '''
 
+from recipe import *
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
@@ -180,25 +181,25 @@ class Page1(tk.Frame):
 
         buttonFrame.pack()
 
-        self.displayRecipe('asd')
+        self.displayRecipe(Recipe("test", "1. test\n2. test\n3. test", {"ingredient": 'asd'}, "", 1, "", ""))
 
     def update_scroll_region(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
     def createRecipeLabels(self, recipes):
-        for recipe in recipes:
-            ttk.Button(self.contentFrame, text=recipe.name, command=lambda: self.displayRecipe(recipe)).pack()
+        for i in recipes:
+            ttk.Button(self.contentFrame, text=i.name, command=lambda: self.displayRecipe(i)).pack()
 
     def displayRecipe(self, recipe):
         popup = tk.Toplevel(self)
-        popup.title("Popup Window")
+        popup.title(recipe.name)
 
         # Add content to the popup window
-        label = tk.Label(popup, text="This is a popup window!")
+        label = tk.Label(popup, text=recipe)
         label.pack(pady=20)
 
         close_button = ttk.Button(popup, text="Close", command=popup.destroy)
-        close_button.pack()
+        close_button.pack(pady=(0, 20))
 
 # CREATE PAGE
 class Page2(tk.Frame):

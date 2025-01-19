@@ -189,9 +189,6 @@ class Page1(tk.Frame):
 
         homeImage.bind("<Button-1>", toHome)
 
-
-
-
         self.entryText = ttk.Entry(self.contentFrame, width=30)
         self.entryText.pack(pady=(0, 15), ipady=4)
 
@@ -220,7 +217,7 @@ class Page1(tk.Frame):
 
             buttonFrame = ttk.Frame(self.contentFrame)
 
-            generate = ttk.Button(buttonFrame, text="Generate", command=())
+            generate = ttk.Button(buttonFrame, text="Generate", command=lambda: self.generateRecipe(self.entryText.get()))
             generate.pack(side="left", padx=15)
 
             create = ttk.Button(buttonFrame, text="Create", command=lambda: toCreate(None))
@@ -237,7 +234,7 @@ class Page1(tk.Frame):
         else:
             for recipe in results:
                 button = ttk.Button(self.contentFrame, text=recipe.name, command=lambda:self.displayRecipe(recipe))
-                button.pack()
+                button.pack(ipady=4, pady=(0, 10))
                 self.shownRecipes.append(button)
 
 
@@ -250,8 +247,8 @@ class Page1(tk.Frame):
         popup.title(recipe.name)
 
         # Add content to the popup window
-        label = tk.Label(popup, text=recipe)
-        label.pack(pady=20)
+        label = tk.Label(popup, text=recipe, justify="left")
+        label.pack(pady=20, padx=10)
 
         close_button = ttk.Button(popup, text="Close", command=popup.destroy)
         close_button.pack(pady=(0, 20))
@@ -261,7 +258,7 @@ class Page1(tk.Frame):
         popup.title(recipe.name)
 
         # Add content to the popup window
-        label = tk.Label(popup, text=recipe)
+        label = tk.Label(popup, text=recipe, justify="left")
         label.pack(pady=20)
 
         buttonFrame = ttk.Frame(popup)
@@ -274,10 +271,10 @@ class Page1(tk.Frame):
         instructions = ", ".join(recipe.instructions)
 
         keep_button = ttk.Button(buttonFrame, text="Save", command=lambda: input_to_csv(recipe.name, ingredients, amounts, instructions, recipe.servings, recipe.time))
-        keep_button.pack(pady=(0, 20), padx=(0, 15))
+        keep_button.pack(pady=(0, 20), padx=(0, 15), side="left")
 
         close_button = ttk.Button(buttonFrame, text="Close", command=popup.destroy)
-        close_button.pack(pady=(0, 20))
+        close_button.pack(pady=(0, 20), side="left")
 
         buttonFrame.pack()
 

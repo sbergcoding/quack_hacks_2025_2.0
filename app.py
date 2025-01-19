@@ -1,6 +1,3 @@
-import test
-
-
 '''
 Button, Checkbutton, Entry, Frame, Label, LabelFrame, Menubutton, PanedWindow, Radiobutton,
 Scale, Scrollbar, and Spinbox. The other six are new: Combobox, Notebook, Progressbar,
@@ -9,9 +6,19 @@ Separator, Sizegrip and Treeview
 
 import tkinter as tk
 from tkinter import ttk
+from PIL import Image, ImageTk
 
-LARGEFONT = ("Inter", 35)
 
+H1 = ("Arial", 35, "bold")
+H2 = ("Arial", 24, "bold")
+H3 = ("Arial", 18, "bold")
+BODY = ("Arial", 18)
+
+def toSearch(event):
+    app.show_frame(Page1)
+
+def toCreate(event):
+    app.show_frame(Page2)
 
 class TkinterApp(tk.Tk):
 
@@ -52,41 +59,67 @@ class TkinterApp(tk.Tk):
         frame.tkraise()
 
 
-# first window frame startpage
-
+# START PAGE
 class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        # label of frame Layout 2
-        label = ttk.Label(self, text="Recipe Book", font=LARGEFONT)
+        label = ttk.Label(self, text="Recipe Book", font=H1)
+        label.pack(pady=(20,155))
 
-        # putting the grid in its place by using
-        # grid
-        label.grid(row=0, column=4, padx=10, pady=10)
+        label = ttk.Label(self, text="What would you like help with?", font=H3)
+        label.pack(pady=(0, 20))
+        bigFrame = tk.Frame(self)
 
-        button1 = ttk.Button(self, text="Find a recipe",
-                             command=lambda: controller.show_frame(Page1))
+        # Search
+        searchFrame = tk.Frame(bigFrame)
 
-        # putting the button in its place by
-        # using grid
-        button1.grid(row=1, column=1, padx=10, pady=10)
+        image = Image.open("icons/search.png").convert("RGBA").resize((55, 55))
+        photo = ImageTk.PhotoImage(image)
 
-        ## button to show frame 2 with text layout2
-        button2 = ttk.Button(self, text="Make a recipe",
-                             command=lambda: controller.show_frame(Page2))
+        # Create the button with the icon
+        searchImage = tk.Label(searchFrame, image=photo)
+        searchImage.image = photo
+        searchImage.pack(pady=(12, 0))
 
-        # putting the button in its place by
-        # using grid
-        button2.grid(row=2, column=1, padx=10, pady=10)
+        searchLabel = tk.Label(searchFrame, text="Find recipe", font=BODY)
+        searchLabel.pack(padx=7, pady=(10, 12))
 
+        searchFrame.pack(side='left', padx=(0, 15))
 
-# second window frame page1
+        searchFrame.bind("<Button-1>", toSearch)
+        searchLabel.bind("<Button-1>", toSearch)
+        searchImage.bind("<Button-1>", toSearch)
+
+        # Create
+
+        createFrame = tk.Frame(bigFrame)
+
+        image = Image.open("icons/create.png").convert("RGBA").resize((55, 55))
+        photo = ImageTk.PhotoImage(image)
+
+        # Create the button with the icon
+        createImage = tk.Label(createFrame, image=photo)
+        createImage.image = photo
+        createImage.pack(pady=(12, 0))
+
+        createLabel = tk.Label(createFrame, text="Create recipe", font=BODY)
+        createLabel.pack(padx=7, pady=(10, 12))
+
+        createFrame.pack()
+
+        createFrame.bind("<Button-1>", toCreate)
+        createLabel.bind("<Button-1>", toCreate)
+        createImage.bind("<Button-1>", toCreate)
+
+        bigFrame.pack()
+
+# SEARCH PAGE
 class Page1(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text="Find", font=LARGEFONT)
+        label = ttk.Label(self, text="Find", font=H1)
         label.grid(row=0, column=4, padx=10, pady=10)
 
         # Switches to homepage
@@ -94,11 +127,11 @@ class Page1(tk.Frame):
         button1.grid(row=1, column=1, padx=10, pady=10)
 
 
-# third window frame page2
+# CREATE PAGE
 class Page2(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text="Create", font=LARGEFONT)
+        label = ttk.Label(self, text="Create", font=H1)
         label.grid(row=0, column=4, padx=10, pady=10)
 
         # Switches to homepage

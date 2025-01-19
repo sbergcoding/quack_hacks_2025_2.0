@@ -33,7 +33,6 @@ def find_matching_recipes(library, ingredients):
     all_ingredients = [item for sublist in library.values() for item in sublist]
     return [ingredient for ingredient in ingredients if ingredient in all_ingredients]
 
-# hlkeeecwqvvqwe beqrb erq re rwe erdat fsg gsnfgnwrfhwrnera
 
 if __name__ == "__main__":
     main()

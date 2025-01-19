@@ -5,12 +5,15 @@ Separator, Sizegrip and Treeview
 '''
 
 from recipe import *
-from add_recipe_to_csv import *
 
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
+from add_recipe_to_csv import *
+from search import *
+from chatgbt_resipes import *
 import sv_ttk
+
 
 
 H1 = ("Arial", 35, "bold")
@@ -146,6 +149,8 @@ class Page1(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
+        # PAGE SETUP
+
         # Canvas
         self.canvas = tk.Canvas(self)
         self.canvas.pack(side="left", fill="both", expand=True)
@@ -183,27 +188,65 @@ class Page1(tk.Frame):
 
         homeImage.bind("<Button-1>", toHome)
 
-        entryText = ttk.Entry(self.contentFrame, width=30)
-        entryText.pack(pady=(0, 15), ipady=4)
 
 
-        submitButton = ttk.Button(self.contentFrame, text="Submit", command=self.submitFilters)
+
+        self.entryText = ttk.Entry(self.contentFrame, width=30)
+        self.entryText.pack(pady=(0, 15), ipady=4)
+
+
+        submitButton = ttk.Button(self.contentFrame, text="Submit", command=lambda: self.submitFilters(self.entryText.get()))
         submitButton.pack(ipadx=5, ipady=5)
 
         self.title = ttk.Label(self.contentFrame, text="Click submit to find recipes!", font=H3)
         self.title.pack(pady=(45, 30))
 
+        self.shownRecipes = []
+
         #self.displayRecipe(Recipe("test", "1. test\n2. test\n3. test", {"ingredient": 'asd'}, "", 1, "", ""))
 
-    def submitFilters(self):
-        print("ADD THIS LATER")
+    def submitFilters(self, prompt):
+        for element in self.shownRecipes:
+            element.destroy()
+
+        self.shownRecipes = []
+
+        self.title.config(text="Results")
+
+        #results = search("INPUT", "RECIPE OBJECTS", "INPUT_INGREDIENTS")
+
+        results = 1
+
+        if results is None:
+            self.shownRecipes.append(ttk.Label(self.contentFrame, text="No results found.\nWould you like to generate or create a new one?", justify="center"))
+            self.shownRecipes[-1].pack(pady=(0, 50))
+
+            buttonFrame = ttk.Frame(self.contentFrame)
+
+            generate = ttk.Button(buttonFrame, text="Generate", command=())
+            generate.pack(side="left", padx=15)
+
+            create = ttk.Button(buttonFrame, text="Create", command=lambda: toCreate(None))
+            create.pack(side="left")
+
+            buttonFrame.pack()
+
+            self.shownRecipes.append(generate)
+            self.shownRecipes.append(create)
+
+        elif type(results) == int:
+            self.title.config(text="Please enter some ingredients.")
+
+        else:
+            for recipe in results:
+                button = ttk.Button(self.contentFrame, text=recipe.name, command=lambda:self.displayRecipe(recipe))
+                button.pack()
+                self.shownRecipes.append(button)
+
+
 
     def update_scroll_region(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-
-    def createRecipeLabels(self, recipes):
-        for i in recipes:
-            ttk.Button(self.contentFrame, text=i.name, command=lambda: self.displayRecipe(i)).pack()
 
     def displayRecipe(self, recipe):
         popup = tk.Toplevel(self)
@@ -215,6 +258,11 @@ class Page1(tk.Frame):
 
         close_button = ttk.Button(popup, text="Close", command=popup.destroy)
         close_button.pack(pady=(0, 20))
+
+    def generateRecipe(self, prompt):
+        chatgpt_resipe = reformat_recipe(generate_recipe(prompt.split(", ")))
+        self.displayRecipe(chatgpt_resipe)
+
 
 # CREATE PAGE
 class Page2(tk.Frame):

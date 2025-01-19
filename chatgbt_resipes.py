@@ -168,8 +168,3 @@ def parse_reformatted_ccv(reformatted_recipe: str):
 
     input_to_csv(name, instructions, ingredients_list, amounts_list, location, servings, time)
 
-ingredients = ["chicken", "rice", "soy sauce", "garlic", "ginger", "vegetables"]
-recipe = generate_recipe(ingredients)
-reformatted_recipe = reformat_recipe(recipe)
-parsed_recipe = convert_json_to_recipe(recipe)
-print(parsed_recipe)
